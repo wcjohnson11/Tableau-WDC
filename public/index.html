@@ -1,0 +1,61 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Koa + Heroku App</title>
+</head>
+<body>
+
+  <h1>Hello, Koa + Heroku app :)</h1>
+
+<script>
+  /**
+   *
+   * HELPER FUNCTIONS
+   *
+   */
+  /**
+   * Simple POST JSON wrapper
+   * @param  {String}   url  [description]
+   * @param  {Object}   data [description]
+   * @param  {Function} cb   [description]
+   */
+  var postJSON = function(url, data, cb) {
+    var request = new XMLHttpRequest();
+    request.open('POST', url, true);
+    request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+    request.onload = function () {
+      if (request.status >= 200 && request.status < 400){
+        // Success!
+        if (cb) {
+          cb(JSON.parse(request.responseText));
+        }
+      } else {
+        // We reached our target server, but it returned an error
+      }
+    };
+    request.send(JSON.stringify(data));
+  };
+  /**
+   * Simple GET JSON wrapper
+   * @param  {String}   url  [description]
+   * @param  {Function} cb   [description]
+   */
+  var getJSON = function(url, cb) {
+    var request = new XMLHttpRequest();
+    request.open('GET', url, true);
+    request.onload = function() {
+      if (request.status >= 200 && request.status < 400){
+        // Success!
+        if (cb) {
+          cb(JSON.parse(request.responseText));
+        }
+      } else {
+        // We reached our target server, but it returned an error
+      }
+    };
+    request.send();
+  };
+</script>
+
+</body>
+</html>
